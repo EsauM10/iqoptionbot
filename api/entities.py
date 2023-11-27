@@ -52,6 +52,16 @@ class Asset:
     alerts: list[PriceAlert] = field(default_factory=list)
     logs: list[LogMessage] = field(default_factory=list)
 
+    def get_currencies_image_urls(self) -> list[str]:
+        image_path = '/static/icons'
+        asset = self.name.replace('-OTC', '')
+        currency1 = asset[0:3]
+        currency2 = asset[3:]
+        return [
+            f'{image_path}/{currency1}.SVG', 
+            f'{image_path}/{currency2}.SVG'
+        ]
+
     @property
     def to_dict(self) -> dict[str, Any]:
         return {
