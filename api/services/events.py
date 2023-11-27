@@ -18,6 +18,7 @@ class FrontendChannels:
 
     def update_asset_data(self, asset: Asset):
         self.update_asset_name(asset)
+        self.update_asset_currencies(asset)
         self.update_asset_profit(asset)
         self.update_start_button(asset)
         self.update_asset_price(asset)
@@ -29,6 +30,14 @@ class FrontendChannels:
 
     def update_asset_alerts(self, asset: Asset):
         self.socket.emit('setAlerts', asset.to_dict)
+
+    def update_asset_currencies(self, asset: Asset):
+        currency1, currency2 = asset.get_currencies_image_urls()
+        self.socket.emit('setCurrencies', {
+            'name': asset.name, 
+            'currency1': currency1,
+            'currency2': currency2,
+        })
 
     def update_asset_logs(self, asset: Asset):
         self.socket.emit('setLogs', asset.to_dict)
