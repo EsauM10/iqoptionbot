@@ -115,7 +115,7 @@ def stop_bot():
 
 # ============================================================================ #
 if(__name__ == '__main__'):
-    debug = True
+    debug = False
     
     if(not debug):
         webbrowser.open('http://localhost:5000')
