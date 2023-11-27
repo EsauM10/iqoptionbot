@@ -3,7 +3,7 @@ from typing import Any, Callable
 
 from api.repository import Repository
 from api.services.events import FrontendChannels
-from api.services.exchange import ExchangeAdapter
+from api.services.decorators.exchange import ExchangeAdapter
 from api.services.strategies import RetracementM5Strategy
 
 from trading.bot import TradingBot, TradingStrategy
