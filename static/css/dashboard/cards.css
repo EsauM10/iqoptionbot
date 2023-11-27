@@ -1,0 +1,135 @@
+.cards {
+    width: 100%;
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 20px;
+}
+
+.card {
+    height: 180px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--stroke);
+}
+
+.card > header {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    color: white;
+}
+
+.card > header i {
+    font-size: 24px;
+}
+
+.card > header h1 {
+    font-size: 18px;
+    font-weight: var(--font-regular);
+}
+
+.card-profit > main {
+    width: 100%;
+    height: calc(100% - 24px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.card-profit > main h1 {
+    font-size: 36px;
+    font-weight: var(--font-regular);
+    color: var(--primary);
+}
+
+.card-alerts > header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-alerts > header > div {
+    display: flex;
+    gap: 10px;
+}
+
+.card-alerts > header > aside {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+}
+
+#priceAlertInput {
+    width: 100px;
+    height: 30px;
+    background: none;
+    border-radius: 5px;
+    padding-left: 5px;
+    font-size: 15px;
+    color: white;
+    border: 2px solid var(--stroke);
+}
+
+#priceAlertInput:focus {  
+    outline: 2px solid var(--primary);
+}
+
+#addAlertButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--stroke);
+    color: white;
+    cursor: pointer;
+}
+
+#alertList {
+    width: 100%;
+    height: calc(100% - 30px);
+    margin-top: 5px;
+    overflow-y: auto;
+}
+
+#alertList > li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    list-style: none;
+    margin-top: 5px;
+    width: 100%;
+    height: 35px;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: var(--primary);
+    background-color: var(--accent);
+}
+
+#alertList > li div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: var(--font-medium);
+}
+
+#alertList > li i {
+    font-size: 24px;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+
+@media (max-width: 1330px) {
+    .card:nth-child(2) {
+        order: 3;
+    }
+    .card-alerts {
+        order: 2;
+    }
+}

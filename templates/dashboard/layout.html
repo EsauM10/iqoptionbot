@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/layout.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/sidebar.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/navbar.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    {% include 'dashboard/components/sidebar.html' %}
+
+    <div class="wrapper">
+        {% include 'dashboard/components/navbar.html' %}
+        
+        <div class="page">
+            {% block page %}{% endblock %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script src="{{url_for('static', filename='js/sidebar.js')}}"></script>
+{% endblock %}

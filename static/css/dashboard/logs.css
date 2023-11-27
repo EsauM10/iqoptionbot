@@ -1,0 +1,56 @@
+.logs {
+    width: 100%;
+    flex: 1;
+    min-height: 200px;
+    border: 1px solid var(--stroke);    
+}
+
+.logs > header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    background-color: var(--accent);
+    color: white;
+    border-bottom: 1px solid var(--stroke);
+}
+
+.logs > header i {
+    font-size: 24px;
+}
+
+.logs > header h1 {
+    font-size: 18px;
+    font-weight: var(--font-regular);
+}
+
+#logList {
+    width: 100%;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+#logList > li {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+    border-bottom: 1px solid var(--stroke);
+    color: white;
+}
+
+.logDate, .logMessage {
+    padding: 10px;
+}
+
+.logDate {
+    display: flex;
+    width: 180px;
+    min-width: 180px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: var(--gray);
+    border-right: 1px solid var(--stroke);
+}

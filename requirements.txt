@@ -1,0 +1,4 @@
+flask
+flask-socketio
+git+https://github.com/EsauM10/tradingbot.git
+

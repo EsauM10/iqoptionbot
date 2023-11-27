@@ -1,0 +1,92 @@
+.history {
+    width: 300px;
+    height: 100%;
+    border-left: 1px solid var(--stroke);
+}
+
+.history > header {
+    width: 100%;
+    height: 40px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+    border-bottom: 1px solid var(--stroke);
+}
+
+.history > header i {
+    font-size: 24px;
+}
+
+.history > header h1 {
+    font-size: 16px;
+    font-weight: var(--font-regular);
+}
+
+.history > ul {
+    width: 100%;
+    height: calc(100% - 40px);
+    overflow-y: auto;
+}
+
+.transactionItem {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--stroke);
+    color: white;
+}
+
+.transactionItem span {
+    text-align: center;
+}
+
+.transactionItem main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.transactionItem main h1 {
+    font-size: 15px;
+    font-weight: var(--font-regular);
+}
+
+.transactionItem p {
+    color: var(--gray);
+}
+
+.transactionItem > main > div:nth-of-type(2) {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.transactionItem i {
+    font-size: 20px;
+    font-weight: var(--font-medium);
+}
+
+.transactionItem .status {
+    color: var(--gray);
+    animation: spinIcon 1s normal infinite;
+}
+
+.positive {
+    color: var(--success) !important;
+}
+
+.negative {
+    color: var(--danger) !important;
+}
+
+
+@keyframes spinIcon {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(180deg); }
+}
