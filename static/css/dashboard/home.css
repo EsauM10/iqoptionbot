@@ -15,6 +15,28 @@
     color: white;
 }
 
+.assetInfo {
+    display: flex;
+    height: 45px;
+    gap: 5px;
+}
+
+#currencies {
+    width: 40px;
+}
+
+#currencies img {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+}
+
+#currencies img:nth-child(2) {
+    position: relative;
+    top: -15px;
+    left: 15px;
+}
+
 .asset-content > header h1 {
     font-size: 20px;
 }

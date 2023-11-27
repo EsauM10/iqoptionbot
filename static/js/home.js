@@ -32,6 +32,7 @@ class HomePage {
         this.socket.on("setOpenAssets", (data) => this.setOpenAssets(data.selectedAsset, data.openAssets))
         
         this.socket.on("setAssetName", (data) => this.setAssetName(data.name))
+        this.socket.on("setCurrencies", (data) => this.setCurrencies(data.name, data.currency1, data.currency2))
         this.socket.on("setAlerts", (data) => this.setAlerts(data.name, data.alerts))
         this.socket.on("setProfit", (data) => this.setProfit(data.name, data.profit))
         this.socket.on("setLogs", (data) => this.setLogs(data.name, data.logs))
@@ -122,6 +123,22 @@ class HomePage {
         if(this.getSelectedAsset() === name){
             assetName.innerText = name
         }
+    }
+
+    /**
+     * @param {string} name 
+     * @param {string} currency1_url 
+     * @param {string} currency2_url
+     * @returns 
+     */
+    setCurrencies(name, currency1_url, currency2_url) {
+        if(this.getSelectedAsset() !== name){
+            return
+        }
+        document.getElementById("currencies").innerHTML = `
+            <img src="${currency1_url}" alt="">
+            <img src="${currency2_url}" alt="">
+        `
     }
 
     /**

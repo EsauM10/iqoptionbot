@@ -4,3 +4,5 @@ dist/
 output/
 venv/
 
+main.py
+

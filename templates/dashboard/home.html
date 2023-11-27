@@ -12,18 +12,15 @@
 <main class="asset-content">
     
     <header id="assetHeader">
-        <div>
-            <h1 id="assetName">
+        <div class="assetInfo">
+            <div id="currencies">
                 <div class="loader"></div>
-            </h1>
-            <h2 id="assetPrice"></h2>
+            </div>
+            <div>
+                <h1 id="assetName"></h1>
+                <h2 id="assetPrice"></h2>
+            </div>
         </div>
-        <!-- 
-        <button id="startButton">
-            <i class="ph ph-play"></i>
-            Iniciar
-        </button>
-        -->
     </header>
 
     {% include 'dashboard/components/cards.html' %}
