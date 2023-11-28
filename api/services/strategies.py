@@ -7,7 +7,6 @@ from api.entities import Asset, PriceAlert
 from api.repository import Repository
 from api.services.events import FrontendChannels
 
-import threading
 
 class RetracementM5Strategy(TradingStrategy):
     def __init__(self, asset: Asset, frontend: FrontendChannels, repository: Repository) -> None:
@@ -56,7 +55,6 @@ class RetracementM5Strategy(TradingStrategy):
             self.frontend.update_asset_data(self.asset)
             raise StopTradingBot('Execução interrompida')
 
-        print(f'[{self.asset.name}]: {threading.active_count()} threads running')
         last_candle = candles[-1]
         self.asset.price = last_candle.close
         self.frontend.update_asset_price(self.asset)
