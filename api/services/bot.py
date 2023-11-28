@@ -37,7 +37,7 @@ class BotHandler:
 
     def start_new_thread(self, strategy: TradingStrategy):
         bot = TradingBot(self.exchange, self.repository.setup, strategy)
-        bot.time_interval = 0.2
+        bot.time_interval = 0.05
         self.thread = Thread(target=bot.run, args=[])
         self.thread.start()
 
