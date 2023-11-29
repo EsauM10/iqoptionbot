@@ -12,7 +12,7 @@ logger = TradingLogger.instance()
 
 class RetracementM5Strategy(TradingStrategy):
     def __init__(self, asset: Asset, frontend: FrontendChannels, repository: Repository) -> None:
-        super().__init__(candles_amount=100)
+        super().__init__(candles_amount=1)
         
         self.asset = asset
         self.frontend = frontend

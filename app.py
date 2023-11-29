@@ -121,9 +121,3 @@ if(__name__ == '__main__'):
         webbrowser.open('http://localhost:5000')
     
     socketio.run(app, debug=debug, use_reloader=debug, log_output=True)
-
-'''
-iqoption_bot:
-- Mover a lógica dos channels handle_alerts, get_data e update_selected_asset para a class BotHandler
-- Implementar a lógica da rota setting_page para permitir configurar o TradingSetup
-'''
