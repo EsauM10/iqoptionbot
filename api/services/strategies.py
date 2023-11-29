@@ -1,3 +1,4 @@
+from trading.logger import TradingLogger
 from trading.bot import TradingStrategy
 from trading.exceptions import StopTradingBot
 from trading.helpers import price_reached_target
@@ -7,23 +8,24 @@ from api.entities import Asset, PriceAlert
 from api.repository import Repository
 from api.services.events import FrontendChannels
 
+logger = TradingLogger.instance()
 
 class RetracementM5Strategy(TradingStrategy):
     def __init__(self, asset: Asset, frontend: FrontendChannels, repository: Repository) -> None:
         super().__init__(candles_amount=100)
+        
         self.asset = asset
         self.frontend = frontend
         self.repository = repository
         self.repository.set_asset_running(asset)
-        self.repository.create_log('Monitorando Preços')
-        self.frontend.update_asset_data(asset)
+        logger.info('Monitorando preços')
 
     def get_trade_direction(self, candle: Candle) -> Action:
         expiration = candle.get_remaining_time_until_close()
         self.repository.setup.expiration = expiration
 
         if(expiration < 2):
-            self.repository.create_log('Transação cancelada devido ao tempo de expiração menor que 2min')
+            logger.info('Transação cancelada devido ao tempo de expiração menor que 2min')
             return Action.HOLD
         return Action.BUY if(candle.color == Color.RED) else Action.SELL
 
@@ -45,14 +47,10 @@ class RetracementM5Strategy(TradingStrategy):
 
     def evaluate(self, candles: list[Candle]) -> Action:
         if(not self.asset.running):
-            self.repository.create_log('Execução interrompida')
-            self.frontend.update_asset_data(self.asset)
             raise StopTradingBot('Execução interrompida')
         if(not self.asset.alerts):
             self.asset.running = False
-            self.repository.create_log('A lista de alertas está vazia')
-            self.repository.create_log('Execução interrompida')
-            self.frontend.update_asset_data(self.asset)
+            logger.info('A lista de alertas está vazia')
             raise StopTradingBot('Execução interrompida')
 
         last_candle = candles[-1]

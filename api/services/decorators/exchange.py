@@ -32,11 +32,8 @@ class ExchangeAdapter(IQOptionExchange):
             direction='CALL' if(action == Action.BUY) else 'PUT',
             is_completed=transaction.is_completed
         ))
-        
-        asset_data = self.repository.get_asset_by_name(transaction.asset)
-        self.repository.create_log(f'Transação iniciada: direction={action.name}, expiration={expiration}min, timeframe=M5, value={amount}')        
+        self.frontend.update_balance(self.balance())
         self.frontend.update_transactions(self.repository.transactions)
-        self.frontend.update_asset_logs(asset_data)
         return transaction
     
 
@@ -45,11 +42,8 @@ class ExchangeAdapter(IQOptionExchange):
 
         asset = self.repository.get_asset_by_name(transaction.asset)
         self.repository.update_asset_profit(asset, profit=transaction.profit)
-        self.repository.update_transaction_profit(transaction.id, transaction.profit)
-        self.repository.create_log(f'Transação finalizada: profit={transaction.profit} status={transaction.status}')
-        
+        self.repository.update_transaction_profit(transaction.id, transaction.profit)        
         self.frontend.update_transactions(self.repository.transactions)
         self.frontend.update_asset_profit(asset)
         self.frontend.update_balance(self.balance())
-        self.frontend.update_asset_logs(asset)
         return transaction

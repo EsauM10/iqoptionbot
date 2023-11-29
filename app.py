@@ -123,12 +123,7 @@ if(__name__ == '__main__'):
     socketio.run(app, debug=debug, use_reloader=debug, log_output=True)
 
 '''
-tradinbot:
-- Criar um logger para dar a opção de desativar as mensagens de log ou redirecionar o output
-- Modificar as mensagens de log: parar de printar uma linha em branco
-
 iqoption_bot:
 - Mover a lógica dos channels handle_alerts, get_data e update_selected_asset para a class BotHandler
-- Substituir o logger do TradinBot para permitir a redirecionamento dos logs do bot para a interface 
 - Implementar a lógica da rota setting_page para permitir configurar o TradingSetup
 '''
