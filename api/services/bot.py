@@ -12,6 +12,13 @@ from trading.logger import TradingLogger
 
 logger = TradingLogger.instance()
 
+def on_bot_stopped(frontend: FrontendChannels, repository: Repository):
+    asset_name = repository.selected_asset
+    asset = repository.get_asset_by_name(asset_name)
+    asset.running = False
+    frontend.update_start_button(asset)
+
+
 class BotHandler:
     def __init__(self, frontend: FrontendChannels, repository: Repository) -> None:
         logger.addHandler(FrontendLogger(frontend, repository))
@@ -40,8 +47,8 @@ class BotHandler:
             raise Exception('Invalid credentials')        
 
     def start_new_thread(self, strategy: TradingStrategy):
-        bot = TradingBot(self.exchange, self.repository.setup, strategy)
-        bot.time_interval = 0.05
+        on_stop = lambda: on_bot_stopped(self.frontend, self.repository)
+        bot = TradingBot(self.exchange, self.repository.setup, strategy, on_stop)
         self.thread = Thread(target=bot.run, args=[])
         self.thread.start()
 
