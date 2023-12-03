@@ -180,7 +180,7 @@ class HomePage {
      */
     setPrice(assetName, price) {
         if(this.getSelectedAsset() === assetName){
-            assetPrice.innerText = price || ""
+            assetPrice.innerText = price.toFixed(6)
         }
     }
 
