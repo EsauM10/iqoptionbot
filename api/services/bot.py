@@ -4,7 +4,7 @@ from typing import Any, Callable
 from api.repository import Repository
 from api.services.events import FrontendChannels
 from api.services.decorators.exchange import ExchangeAdapter
-from api.services.logger import FrontendLogger
+from api.services.logging import FrontendLogHandler
 from api.services.strategies import RetracementM5Strategy
 
 from trading.bot import TradingBot, TradingStrategy
@@ -21,7 +21,7 @@ def on_bot_stopped(frontend: FrontendChannels, repository: Repository):
 
 class BotHandler:
     def __init__(self, frontend: FrontendChannels, repository: Repository) -> None:
-        logger.addHandler(FrontendLogger(frontend, repository))
+        logger.addHandler(FrontendLogHandler(frontend, repository))
         self.frontend = frontend
         self.repository = repository
         self.exchange = ExchangeAdapter(frontend, repository)
