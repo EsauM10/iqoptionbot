@@ -1,4 +1,5 @@
 from datetime import datetime
+from threading import Lock
 import time
 
 from api.entities import Transaction
@@ -6,7 +7,7 @@ from api.repository import Repository
 from api.services.events import FrontendChannels
 
 from trading.exchanges.iqoption import IQOptionExchange
-from trading.models import Action, Transaction as IQOptionTransaction
+from trading.models import Action, Candle, Transaction as IQOptionTransaction
 
 
 
@@ -15,11 +16,16 @@ class ExchangeAdapter(IQOptionExchange):
         super().__init__(email='', password='')
         self.frontend   = frontend
         self.repository = repository
-
+        self.lock = Lock()
+    
     def get_current_price(self, asset: str) -> float:
-        last_candle = super().get_candles(asset, timeframe=5, candles_amount=1, timestamp=time.time())[-1]
+        last_candle = self.get_candles(asset, timeframe=5, candles_amount=1, timestamp=time.time())[-1]
         return last_candle.close
     
+    def get_candles(self, asset: str, timeframe: int, candles_amount: int, timestamp: float) -> list[Candle]:
+        with self.lock:
+            return super().get_candles(asset, timeframe, candles_amount, timestamp)
+
     def buy(self, asset: str, expiration: int, amount: float, action: Action) -> IQOptionTransaction:
         transaction = super().buy(asset, expiration, amount, action)
         
