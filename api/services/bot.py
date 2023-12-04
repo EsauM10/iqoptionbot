@@ -10,7 +10,6 @@ from api.services.strategies import RetracementM5Strategy
 from trading.bot import TradingBot, TradingStrategy
 from trading.logger import TradingLogger
 
-logger = TradingLogger.instance()
 
 def on_bot_stopped(frontend: FrontendChannels, repository: Repository):
     asset_name = repository.selected_asset
@@ -21,11 +20,11 @@ def on_bot_stopped(frontend: FrontendChannels, repository: Repository):
 
 class BotHandler:
     def __init__(self, frontend: FrontendChannels, repository: Repository) -> None:
-        logger.addHandler(FrontendLogHandler(frontend, repository))
-        self.frontend = frontend
+        TradingLogger.add_handler(FrontendLogHandler(frontend, repository))
+        self.frontend   = frontend
         self.repository = repository
-        self.exchange = ExchangeAdapter(frontend, repository)
-        self.thread = Thread()
+        self.exchange   = ExchangeAdapter(frontend, repository)
+        self.thread     = Thread()
 
     def login_required(self, func: Callable[..., Any]) -> Any:
         def wrapper(*args: Any, **kwargs: Any):
