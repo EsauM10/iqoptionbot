@@ -14,7 +14,7 @@ function alertItem(alert, onClick) {
     li.innerHTML = `
         <div>
             <i class="ph ph-bell"></i>
-            <p>${alert.price}</p>
+            <p>${alert.price.toFixed(5)}</p>
         </div>
     `
     li.appendChild(icon)
