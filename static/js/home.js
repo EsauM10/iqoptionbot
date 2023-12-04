@@ -200,7 +200,7 @@ class HomePage {
      */
     setPriceAlertInput(assetName, price) { 
         if(this.getSelectedAsset() === assetName){
-            priceAlertInput.value = price
+            priceAlertInput.value = price.toFixed(5)
         }
     }
 
