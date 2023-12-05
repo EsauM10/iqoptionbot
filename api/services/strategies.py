@@ -1,3 +1,4 @@
+from datetime import datetime
 from trading.logger import TradingLogger
 from trading.bot import TradingStrategy
 from trading.exceptions import StopTradingBot
@@ -10,6 +11,13 @@ from api.services.events import FrontendChannels
 
 logger = TradingLogger.instance()
 
+def calculate_expiration(candle: Candle) -> int:
+    expiration = candle.get_remaining_time_until_close()
+    if(datetime.now().second > 30):
+        expiration -= 1
+    return expiration
+
+
 class RetracementM5Strategy(TradingStrategy):
     def __init__(self, asset: Asset, frontend: FrontendChannels, repository: Repository) -> None:
         super().__init__(candles_amount=1)
@@ -21,7 +29,7 @@ class RetracementM5Strategy(TradingStrategy):
         logger.info('Monitorando preços')
 
     def get_trade_direction(self, candle: Candle) -> Action:
-        expiration = candle.get_remaining_time_until_close()
+        expiration = calculate_expiration(candle)
         self.repository.setup.expiration = expiration
 
         if(expiration < 2):
