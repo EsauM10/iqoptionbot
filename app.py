@@ -113,6 +113,11 @@ def stop_bot():
     bot_handler.stop()
     
 
+@socketio.on_error()
+def error_handler(e):
+    bot_handler.stop()
+    print(f'[{type(e)}]', e)
+
 # ============================================================================ #
 if(__name__ == '__main__'):
     debug = False
