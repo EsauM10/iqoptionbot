@@ -49,8 +49,7 @@ class Repository:
             
             self.assets.append(Asset(name=asset_name))
             
-    def create_log(self, message: str):
-        asset = self.get_asset_by_name(self.selected_asset)
+    def create_log(self, asset: Asset, message: str):
         log_message = LogMessage(datetime.now(), message)
         asset.logs.append(log_message)
 

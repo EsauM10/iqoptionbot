@@ -1,16 +1,16 @@
 import logging
+from api.entities import Asset
 
 from api.repository import Repository
 from api.services.events import FrontendChannels
 
 class FrontendLogHandler(logging.Handler):
-    def __init__(self, frontend: FrontendChannels, repository: Repository) -> None:
+    def __init__(self, asset: Asset, frontend: FrontendChannels, repository: Repository) -> None:
         super().__init__(level=logging.INFO)
-        self.frontend = frontend
+        self.asset      = asset
+        self.frontend   = frontend
         self.repository = repository
     
     def emit(self, record: logging.LogRecord) -> None:
-        name  = self.repository.selected_asset
-        asset = self.repository.get_asset_by_name(name)
-        self.repository.create_log(record.getMessage())
-        self.frontend.update_asset_data(asset)
+        self.repository.create_log(self.asset, record.getMessage())
+        self.frontend.update_asset_data(self.asset)

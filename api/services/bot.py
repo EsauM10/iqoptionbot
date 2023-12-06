@@ -1,5 +1,6 @@
 from threading import Thread
 from typing import Any, Callable
+from api.entities import Asset
 
 from api.repository import Repository
 from api.services.events import FrontendChannels
@@ -11,16 +12,13 @@ from trading.bot import TradingBot, TradingStrategy
 from trading.logger import TradingLogger
 
 
-def on_bot_stopped(frontend: FrontendChannels, repository: Repository):
-    asset_name = repository.selected_asset
-    asset = repository.get_asset_by_name(asset_name)
+def on_bot_stopped(asset: Asset, frontend: FrontendChannels):
     asset.running = False
     frontend.update_start_button(asset)
 
 
 class BotHandler:
     def __init__(self, frontend: FrontendChannels, repository: Repository) -> None:
-        TradingLogger.add_handler(FrontendLogHandler(frontend, repository))
         self.frontend   = frontend
         self.repository = repository
         self.exchange   = ExchangeAdapter(frontend, repository)
@@ -45,8 +43,11 @@ class BotHandler:
         except:
             raise Exception('Invalid credentials')        
 
-    def start_new_thread(self, strategy: TradingStrategy):
-        on_stop = lambda: on_bot_stopped(self.frontend, self.repository)
+    def start_new_thread(self, asset: Asset):
+        handler = FrontendLogHandler(asset, self.frontend, self.repository)
+        TradingLogger.add_handler(handler, clear=True)
+        strategy = RetracementM5Strategy(asset, self.frontend, self.repository)
+        on_stop = lambda: on_bot_stopped(asset, self.frontend)
         bot = TradingBot(self.exchange, self.repository.setup, strategy, on_stop)
         self.thread = Thread(target=bot.run, args=[])
         self.thread.start()
@@ -59,9 +60,8 @@ class BotHandler:
         if(self.thread.is_alive()):
             self.finish_thread()
 
-        asset    = self.repository.get_asset_by_name(asset_name)
-        strategy = RetracementM5Strategy(asset, self.frontend, self.repository)
-        self.start_new_thread(strategy)
+        asset = self.repository.get_asset_by_name(asset_name)
+        self.start_new_thread(asset)
 
     def stop(self):
         if(self.thread.is_alive()):
