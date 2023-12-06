@@ -43,11 +43,17 @@ class Repository:
         return alert
 
     def create_assets(self, assets: list[str]):
-        for asset_name in assets:
-            if(self.__get_asset(asset_name) is not None):
-                continue
-            
-            self.assets.append(Asset(name=asset_name))
+        open_assets      = set(assets)
+        all_assets_names = {asset.name for asset in self.assets}
+        assets_to_create = open_assets - all_assets_names
+        closed_assets    = all_assets_names - open_assets
+
+        for asset_name in assets_to_create:
+            self.assets.append(Asset(name=asset_name, is_open=True))
+
+        for asset_name in closed_assets:
+            self.get_asset_by_name(asset_name).is_open = False
+
             
     def create_log(self, asset: Asset, message: str):
         log_message = LogMessage(datetime.now(), message)

@@ -73,26 +73,21 @@ def handle_alerts(data: dict[str, Any]):
 @socketio.on('updateData')
 @bot_handler.login_required
 def get_data(): 
-    open_assets = []
-    try:
-        open_assets = bot_handler.exchange.get_open_assets()
-    except Exception as ex:
-        print(ex)
-    else:
-        account_balance = bot_handler.exchange.balance()
-        repository.create_assets(open_assets)
-        
-        if(repository.selected_asset == ''):
-            repository.selected_asset = open_assets[0]
+    open_assets = bot_handler.exchange.get_open_assets()
+    account_balance = bot_handler.exchange.balance()
+    repository.create_assets(open_assets)
+    
+    if(repository.selected_asset == ''):
+        repository.selected_asset = open_assets[0]
 
-        asset = repository.get_asset_by_name(repository.selected_asset)
-        asset.price = bot_handler.exchange.get_current_price(asset.name)
+    asset = repository.get_asset_by_name(repository.selected_asset)
+    asset.price = bot_handler.exchange.get_current_price(asset.name)
 
-        frontend.update_open_assets(asset.name, open_assets)
-        frontend.update_account_balance(account_balance)
-        frontend.update_transactions(repository.transactions)
-        frontend.update_asset_data(asset)
-        frontend.update_asset_alerts(asset)
+    frontend.update_open_assets(asset.name, repository.get_open_assets_names())
+    frontend.update_account_balance(account_balance)
+    frontend.update_transactions(repository.transactions)
+    frontend.update_asset_data(asset)
+    frontend.update_asset_alerts(asset)
 
 
 @socketio.on('updateSelectedAsset')
