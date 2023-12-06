@@ -8,7 +8,7 @@ from api.services.decorators.exchange import ExchangeAdapter
 from api.services.logging import FrontendLogHandler
 from api.services.strategies import RetracementM5Strategy
 
-from trading.bot import TradingBot, TradingStrategy
+from trading.bot import TradingBot
 from trading.logger import TradingLogger
 
 
@@ -43,12 +43,15 @@ class BotHandler:
         except:
             raise Exception('Invalid credentials')        
 
-    def start_new_thread(self, asset: Asset):
+    def make_trading_bot(self, asset: Asset) -> TradingBot:
         handler = FrontendLogHandler(asset, self.frontend, self.repository)
         TradingLogger.add_handler(handler, clear=True)
         strategy = RetracementM5Strategy(asset, self.frontend, self.repository)
         on_stop = lambda: on_bot_stopped(asset, self.frontend)
-        bot = TradingBot(self.exchange, self.repository.setup, strategy, on_stop)
+        return TradingBot(self.exchange, self.repository.setup, strategy, on_stop)
+
+    def start_new_thread(self, asset: Asset):
+        bot = self.make_trading_bot(asset)
         self.thread = Thread(target=bot.run, args=[])
         self.thread.start()
 
