@@ -62,6 +62,10 @@ class Asset:
             f'{image_path}/{currency2}.SVG'
         ]
 
+    def close(self):
+        self.running = False
+        self.is_open = False
+    
     @property
     def to_dict(self) -> dict[str, Any]:
         return {

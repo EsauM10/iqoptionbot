@@ -52,7 +52,7 @@ class Repository:
             self.assets.append(Asset(name=asset_name, is_open=True))
 
         for asset_name in closed_assets:
-            self.get_asset_by_name(asset_name).is_open = False
+            self.get_asset_by_name(asset_name).close()
 
             
     def create_log(self, asset: Asset, message: str):
