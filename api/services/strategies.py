@@ -13,7 +13,7 @@ logger = TradingLogger.instance()
 
 def calculate_expiration(candle: Candle) -> int:
     expiration = candle.get_remaining_time_until_close()
-    if(datetime.now().second > 30):
+    if(datetime.utcnow().second > 30):
         expiration -= 1
     return expiration
 
