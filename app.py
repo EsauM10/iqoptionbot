@@ -76,9 +76,7 @@ def get_data():
     open_assets = bot_handler.exchange.get_open_assets()
     account_balance = bot_handler.exchange.balance()
     repository.create_assets(open_assets)
-    
-    if(repository.selected_asset == ''):
-        repository.selected_asset = open_assets[0]
+    repository.update_selected_asset(open_assets[0])
 
     asset = repository.get_asset_by_name(repository.selected_asset)
     asset.price = bot_handler.exchange.get_current_price(asset.name)

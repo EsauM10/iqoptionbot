@@ -99,6 +99,12 @@ class Repository:
     def update_asset_profit(self, asset: Asset, profit: float):
         asset.profit += profit
     
+    def update_selected_asset(self, asset_name: str):
+        if(self.selected_asset == ''):
+            self.selected_asset = asset_name
+        elif(not self.get_asset_by_name(self.selected_asset).is_open):
+            self.selected_asset = asset_name
+
     def update_transaction_profit(self, transaction_id: int, profit: float):
         for transaction in self.transactions:
             if(transaction.id == transaction_id):
