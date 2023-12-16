@@ -1,4 +1,5 @@
 from datetime import datetime
+from typing import Any
 from api.entities import Asset, LogMessage, PriceAlert, Transaction
 from api.exceptions import NotFoundException
 
@@ -42,19 +43,14 @@ class Repository:
         asset.alerts.append(alert)
         return alert
 
-    def create_assets(self, assets: list[str]):
-        open_assets      = set(assets)
-        all_assets_names = {asset.name for asset in self.assets}
-        assets_to_create = open_assets - all_assets_names
-        closed_assets    = all_assets_names - open_assets
+    def create_assets(self, assets: list[dict[str, Any]]):
+        for data in assets:
+            asset = self.__get_asset(data['name'])
+            if(asset is None):
+                self.assets.append(Asset.make_asset(data))
+            else:
+                asset.update_schedules(data['schedule'])
 
-        for asset_name in assets_to_create:
-            self.assets.append(Asset(name=asset_name, is_open=True))
-
-        for asset_name in closed_assets:
-            self.get_asset_by_name(asset_name).close()
-
-            
     def create_log(self, asset: Asset, message: str):
         log_message = LogMessage(datetime.now(), message)
         asset.logs.append(log_message)

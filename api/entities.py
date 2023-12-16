@@ -1,6 +1,9 @@
 from dataclasses import dataclass, field
 from datetime import datetime
+import time
 from typing import Any
+
+from api.services.decorators.helpers import calculate_time
 
 
 
@@ -42,15 +45,36 @@ class LogMessage:
         }
 
 
+@dataclass
+class Schedule:
+    start_timestamp: float
+    end_timestamp: float
+    date_format: str = '%d/%m/%Y %H:%M:%S'
+
+    @property
+    def is_open_now(self) -> bool:
+        return self.start_timestamp <= time.time() <= self.end_timestamp 
+       
+    @property
+    def start_hour(self) -> str:
+        return datetime.fromtimestamp(self.start_timestamp).strftime(self.date_format)
+    
+    @property
+    def end_hour(self) -> str:
+        return datetime.fromtimestamp(self.end_timestamp).strftime(self.date_format)
+
+    def __repr__(self) -> str:
+        return f'Schedule({self.start_hour}, {self.end_hour})'
+
 @dataclass()
 class Asset:
     name: str
     profit: float = 0.0
     price: float = 0.0
     running: bool = False
-    is_open: bool = True
-    alerts: list[PriceAlert] = field(default_factory=list)
-    logs: list[LogMessage] = field(default_factory=list)
+    alerts: list[PriceAlert]  = field(default_factory=list)
+    logs: list[LogMessage]    = field(default_factory=list)
+    schedules: list[Schedule] = field(default_factory=list)
 
     def get_currencies_image_urls(self) -> list[str]:
         image_path = '/static/icons'
@@ -62,10 +86,25 @@ class Asset:
             f'{image_path}/{currency2}.SVG'
         ]
 
-    def close(self):
-        self.running = False
-        self.is_open = False
-    
+    def update_schedules(self, timestamps: list[list[float]]):
+        self.schedules = self.parse_schedules(timestamps)
+
+    @staticmethod
+    def parse_schedules(timestamps: list[list[float]]) -> list[Schedule]:
+        return [Schedule(start_time, end_time) for start_time, end_time in timestamps]
+
+    @staticmethod
+    def make_asset(data: dict[str, Any]):
+        return Asset(
+            name=data['name'],
+            schedules=Asset.parse_schedules(data['schedule'])
+        )
+
+    @property
+    def is_open(self) -> bool:
+        any_open_schedule = any([schedule.is_open_now for schedule in self.schedules])
+        return any_open_schedule
+
     @property
     def to_dict(self) -> dict[str, Any]:
         return {

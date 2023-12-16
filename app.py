@@ -73,10 +73,10 @@ def handle_alerts(data: dict[str, Any]):
 @socketio.on('updateData')
 @bot_handler.login_required
 def get_data(): 
-    open_assets = bot_handler.exchange.get_open_assets()
+    open_assets = bot_handler.exchange.get_open_assets(option='turbo', filter='open')
     account_balance = bot_handler.exchange.balance()
     repository.create_assets(open_assets)
-    repository.update_selected_asset(open_assets[0])
+    repository.update_selected_asset(open_assets[0]['name'])
 
     asset = repository.get_asset_by_name(repository.selected_asset)
     asset.price = bot_handler.exchange.get_current_price(asset.name)
