@@ -54,6 +54,8 @@ class RetracementM5Strategy(TradingStrategy):
             return Action.HOLD
 
     def evaluate(self, candles: list[Candle]) -> Action:
+        if(not self.asset.is_open):
+            raise StopTradingBot('Ativo fechado recarregue a página para atualizar')
         if(not self.asset.running):
             raise StopTradingBot('Execução interrompida')
         if(not self.asset.alerts):
