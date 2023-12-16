@@ -65,7 +65,11 @@ class FrontendChannels:
         self.socket.emit('setTransactions', data)
     
     def update_start_button(self, asset: Asset):
-        self.socket.emit('updateStartButton', {'name': asset.name, 'running': asset.running})
+        self.socket.emit('updateStartButton', {
+            'name': asset.name, 
+            'running': asset.running,
+            'is_open': asset.is_open
+        })
 
     def redirect(self, pathname: str):
         self.socket.emit('redirect', pathname)

@@ -44,6 +44,10 @@ class HomePage {
                 this.startButton = this.createStartButton()
             }
             if(this.getSelectedAsset() === data.name){
+                if(!data.is_open) {
+                    this.removeStartButton()
+                    return
+                }
                 this.updateStartButton(this.assetRunning)
             }
         })
