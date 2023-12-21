@@ -26,6 +26,7 @@ class RetracementM5Strategy(TradingStrategy):
         self.frontend = frontend
         self.repository = repository
         self.repository.set_asset_running(asset)
+        self.frontend.update_start_button(asset)
         logger.info('Monitorando preços')
 
     def get_trade_direction(self, candle: Candle) -> Action:

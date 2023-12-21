@@ -13,4 +13,4 @@ class FrontendLogHandler(logging.Handler):
     
     def emit(self, record: logging.LogRecord) -> None:
         self.repository.create_log(self.asset, record.getMessage())
-        self.frontend.update_asset_data(self.asset)
+        self.frontend.update_asset_logs(self.asset)
