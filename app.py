@@ -46,7 +46,7 @@ def handle_login():
 def home_page():
     if(not bot_handler.is_connected):
         return redirect('/login')
-    return render_template('dashboard/home.html')
+    return render_template('dashboard/layout.html')
 
 
 @app.route('/dashboard/settings', methods=['GET'])

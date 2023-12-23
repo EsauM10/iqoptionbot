@@ -5,6 +5,10 @@
 <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/layout.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/sidebar.css')}}">
 <link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/navbar.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/home.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/cards.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/logs.css')}}">
+<link rel="stylesheet" href="{{url_for('static', filename='css/dashboard/history.css')}}">
 {% endblock %}
 
 {% block content %}
@@ -14,8 +18,8 @@
     <div class="wrapper">
         {% include 'dashboard/components/navbar.html' %}
         
-        <div class="page">
-            {% block page %}{% endblock %}
+        <div id="page">
+            
         </div>
     </div>
 </div>
@@ -23,5 +27,9 @@
 
 {% block scripts %}
 {{ super() }}
-<script src="{{url_for('static', filename='js/sidebar.js')}}"></script>
+<script src="{{url_for('static', filename='js/dashboard/components/index.js')}}"></script>
+<script src="{{url_for('static', filename='js/dashboard/components/sidebar.js')}}"></script>
+<script src="{{url_for('static', filename='js/dashboard/home.js')}}"></script>
+<script src="{{url_for('static', filename='js/dashboard/settings.js')}}"></script>
+<script src="{{url_for('static', filename='js/dashboard/index.js')}}"></script>
 {% endblock %}

@@ -9,7 +9,7 @@
     height: 100%;
 }
 
-.wrapper > .page {
+#page {
     display: flex;
     width: 100%;
     height: calc(100% - 60px);
