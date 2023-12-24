@@ -223,6 +223,7 @@ class HomePage {
 
     render() {
         this.startButton = undefined
+        document.getElementById("openAssets").classList.remove("hidden")
         document.getElementById("page").innerHTML = this.getHTML()
         document.getElementById("addAlertButton").addEventListener("click", () => {
             const alertPrice = document.getElementById("priceAlertInput").value

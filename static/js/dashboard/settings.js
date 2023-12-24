@@ -15,6 +15,7 @@ class SettingsPage {
     }
 
     render() {
+        document.getElementById("openAssets").classList.add("hidden")
         document.getElementById("page").innerHTML = `
             <div><h1>Settings</h1></div>
         `
