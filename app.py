@@ -49,10 +49,6 @@ def home_page():
     return render_template('dashboard/layout.html')
 
 
-@app.route('/dashboard/settings', methods=['GET'])
-def settings_page():
-    return render_template('dashboard/settings.html')
-
 # ================================== Events ================================== #
 @socketio.on('alerts')
 def handle_alerts(data: dict[str, Any]):
