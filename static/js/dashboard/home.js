@@ -91,8 +91,11 @@ class HomePage {
     }
 
     removeStartButton() {
-        document.getElementById("assetHeader").removeChild(this.startButton)
-        this.startButton = undefined
+        const assetHeader = document.getElementById("assetHeader")
+        if(assetHeader){
+            assetHeader.removeChild(this.startButton)
+            this.startButton = undefined
+        }
     }
     
     /** @returns {string} */
@@ -162,10 +165,10 @@ class HomePage {
      * @param {{id: number, price: number}[]} alerts 
      */
     setAlerts(assetName, alerts) {
-        if(this.getSelectedAsset() !== assetName){
+        const alertList = document.getElementById("alertList")
+        if(!alertList || this.getSelectedAsset() !== assetName){
             return
         }
-        const alertList = document.getElementById("alertList")
         alertList.querySelectorAll("li").forEach(li =>  alertList.removeChild(li))
         alerts.forEach(alert => this.addAlertItem(alert))
     }
