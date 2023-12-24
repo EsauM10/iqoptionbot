@@ -29,7 +29,8 @@ class FrontendChannels:
         self.socket.emit('setAssetName', {'name': asset.name})
 
     def update_asset_alerts(self, asset: Asset):
-        self.socket.emit('setAlerts', asset.to_dict)
+        data = asset.to_dict
+        self.socket.emit('setAlerts', {'name': data['name'], 'alerts': data['alerts']})
 
     def update_asset_currencies(self, asset: Asset):
         currency1, currency2 = asset.get_currencies_image_urls()
@@ -40,7 +41,8 @@ class FrontendChannels:
         })
 
     def update_asset_logs(self, asset: Asset):
-        self.socket.emit('setLogs', asset.to_dict)
+        data = asset.to_dict
+        self.socket.emit('setLogs', {'name': data['name'], 'logs': data['logs']})
 
     def update_asset_price(self, asset: Asset):
         self.socket.emit('setPrice', {'name': asset.name, 'price': asset.price})
