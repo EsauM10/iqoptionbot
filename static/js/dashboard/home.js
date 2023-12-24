@@ -30,19 +30,7 @@ class HomePage {
         this.socket.on("setLogs", (data) => this.setLogs(data.name, data.logs))
         this.socket.on("setPrice", (data) => this.setPrice(data.name, data.price))
         this.socket.on("setPriceAlertInput", (data) => this.setPriceAlertInput(data.name, data.price))
-        this.socket.on("updateStartButton", (data) => {
-            this.assetRunning = data.running
-            if(this.startButton === undefined){
-                this.startButton = this.createStartButton()
-            }
-            if(this.getSelectedAsset() === data.name){
-                if(!data.is_open) {
-                    this.removeStartButton()
-                    return
-                }
-                this.updateStartButton(this.assetRunning)
-            }
-        })
+        this.socket.on("updateStartButton", (data) => this.updateStartButton(data))
 
         openAssetsSelect.addEventListener("change", () => {
             const selectedAsset = this.getSelectedAsset()
@@ -84,10 +72,27 @@ class HomePage {
     }
 
     /** @param {boolean} running */
-    updateStartButton(running) {
+    updateStartButtonContent(running) {
         this.startButton.innerHTML = running 
         ? "<i class='ph ph-stop'></i> Parar" 
         : "<i class='ph ph-play'></i> Iniciar";
+    }
+
+    /**
+     * @param {{name: string, is_open: boolean, running: boolean}} data
+     */
+    updateStartButton(data) {
+        this.assetRunning = data.running
+        if(this.startButton === undefined){
+            this.startButton = this.createStartButton()
+        }
+        if(this.getSelectedAsset() === data.name){
+            if(!data.is_open) {
+                this.removeStartButton()
+                return
+            }
+            this.updateStartButtonContent(this.assetRunning)
+        }
     }
 
     removeStartButton() {
