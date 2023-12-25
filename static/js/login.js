@@ -22,7 +22,7 @@ class LoginPage {
         this.setButtonLoading(true)
 
         login(email, password)
-        .then(() => redirect('dashboard/home')) //Save credentials on LocalStorage
+        .then(() => redirect('dashboard')) //Save credentials on LocalStorage
         .catch(error => {
             errors.innerText = error.message
             this.setButtonLoading(false)
