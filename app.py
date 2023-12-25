@@ -18,14 +18,14 @@ bot_handler = BotHandler(frontend, repository)
 @app.route('/', methods=['GET'])
 def index():
     if(bot_handler.is_connected):
-        return redirect('/dashboard/home')
+        return redirect('/dashboard')
     return redirect('/login')
 
 
 @app.route('/login', methods=['GET'])
 def login_page():
     if(bot_handler.is_connected):
-        return redirect('/dashboard/home') 
+        return redirect('/dashboard') 
     return render_template('login/login.html')
 
 
@@ -42,11 +42,11 @@ def handle_login():
         return jsonify({'error': f'{ex}'}), 500
 
 
-@app.route('/dashboard/home', methods=['GET'])
+@app.route('/dashboard', methods=['GET'])
 def home_page():
     if(not bot_handler.is_connected):
         return redirect('/login')
-    return render_template('dashboard/layout.html')
+    return render_template('dashboard/index.html')
 
 
 # ================================== Events ================================== #
