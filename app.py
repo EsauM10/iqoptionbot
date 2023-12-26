@@ -109,7 +109,7 @@ def error_handler(e):
 
 # ============================================================================ #
 if(__name__ == '__main__'):
-    debug = False
+    debug = True
     
     if(not debug):
         webbrowser.open('http://localhost:5000')

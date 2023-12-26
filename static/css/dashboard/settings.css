@@ -14,19 +14,32 @@
     grid-row-gap: 30px;
 }
 
+.settings-page > form > label {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    font-size: 18px;
+    gap: 5px;
+}
+
 .input-wrapper {
     display: flex;
     justify-content: flex-end;
     flex-direction: column;
 }
 
-.settings-page > form label {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
+.input-wrapper p {
     color: white;
     font-size: 18px;
     margin-bottom: 5px;
+}
+
+.input-wrapper label {
+    display: inline-flex;
+    align-items: center;
+    color: white;
+    font-size: 18px;
+    gap: 10px;
 }
 
 .settings-page > form input[type="number"] {

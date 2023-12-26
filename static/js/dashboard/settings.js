@@ -20,7 +20,7 @@ class SettingsPage {
             <div class="settings-page">
                 <form>
                     <div class="input-wrapper">
-                        <label>Conta</label>    
+                        <p>Conta</p>    
                         <label>
                             <input type="radio" name="account-type" value="PRACTICE" checked="true">
                             Treinamento
@@ -32,27 +32,28 @@ class SettingsPage {
                             Real
                         </label>
                     </div>
-                    <div>
-                        <label>Valor da entrada</label>
+                    
+                    <label>
+                        Valor da entrada
                         <input type="number" value="1.0" step="0.1" required="true" min="1.0">
-                    </div>
+                    </label>
                     <span></span>
-                    <div>
-                        <label>Stop Win</label>
+                    <label>
+                        Stop Win
                         <input type="number" value="1.0" step="0.1" required="true" min="1.0">
-                    </div>
-                    <div>
-                        <label>Stop Loss</label>
+                    </label>
+                    <label>
+                        Stop Loss
                         <input type="number" value="1.0" step="0.1" required="true" min="1.0">
-                    </div>
-                    <div>
-                        <label>Martingale</label>
+                    </label>
+                    <label>
+                        Martingale
                         <input type="number" value="0" step="1" required="true" min="0">
-                    </div>
-                    <div>
-                        <label>Soros</label>
+                    </label>
+                    <label>
+                        Soros
                         <input type="number" value="0" step="1" required="true" min="0">
-                    </div>
+                    </label>
                 </form>
             </div>
         `
