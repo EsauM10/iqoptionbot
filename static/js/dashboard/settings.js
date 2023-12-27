@@ -22,13 +22,13 @@ class SettingsPage {
                     <div class="input-wrapper">
                         <p>Conta</p>    
                         <label>
-                            <input type="radio" name="account-type" value="PRACTICE" checked="true">
+                            <input type="radio" name="account_mode" value="PRACTICE" checked="true">
                             Treinamento
                         </label>
                     </div>
                     <div class="input-wrapper">
                         <label>
-                            <input type="radio" name="account-type" value="REAL">
+                            <input type="radio" name="account_mode" value="REAL">
                             Real
                         </label>
                     </div>
@@ -55,7 +55,10 @@ class SettingsPage {
                         <input type="number" value="0" step="1" required="true" min="0">
                     </label>
                 </form>
-            </div>
+            <footer>
+                <button id="saveButton">Salvar</button>
+            </footer>
+        </div>
         `
     }
 }
