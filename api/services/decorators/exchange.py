@@ -53,3 +53,6 @@ class ExchangeAdapter(IQOptionExchange):
         self.frontend.update_asset_profit(asset)
         self.frontend.update_balance(self.balance())
         return transaction
+
+    def get_account_mode(self) -> str:
+        return self.api.get_balance_mode() # type: ignore
