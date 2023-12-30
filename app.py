@@ -100,6 +100,16 @@ def settings_page(data: dict[str, Any]):
             'martingales': repository.setup.martingales,
             'soros': repository.setup.soros
         })
+    elif(method == 'PUT'):
+        account_mode = str(payload['account_mode'])
+        if(account_mode == 'PRACTICE' or account_mode == 'REAL'):
+            bot_handler.exchange.change_account(account_mode)
+            frontend.update_balance(bot_handler.exchange.balance())
+        repository.setup.set_money(float(payload['money_amount']))
+        repository.setup.stopgain    = float(payload['stop_win'])
+        repository.setup.stoploss    = float(payload['stop_loss'])
+        repository.setup.martingales = int(payload['martingales'])
+        repository.setup.soros       = int(payload['soros'])
 
 
 @socketio.on('updateSelectedAsset')

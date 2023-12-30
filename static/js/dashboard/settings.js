@@ -47,6 +47,19 @@ class SettingsPage {
     render() {
         document.getElementById("openAssets").classList.add("hidden")
         document.getElementById("page").innerHTML = this.getHTML()
+        document.getElementById("saveButton").addEventListener("click", () => {
+            this.socket.emit(this.name, {
+                "method": "PUT",
+                "payload": {
+                    "account_mode": this.getSelectedAccountMode(),
+                    "money_amount": document.getElementById("entryValueInput").value,
+                    "stop_win": document.getElementById("stopwinInput").value,
+                    "stop_loss":  document.getElementById("stoplossInput").value,
+                    "martingales": document.getElementById("martingalesInput").value,
+                    "soros": document.getElementById("sorosInput").value
+                }
+            })
+        })
         this.socket.emit(this.name, {"method": "GET", payload: {}})
     }
 
