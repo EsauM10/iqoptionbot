@@ -84,6 +84,24 @@ def get_data():
     frontend.update_asset_alerts(asset)
 
 
+@socketio.on('settings')
+@bot_handler.login_required
+def settings_page(data: dict[str, Any]):
+    method = str(data['method'])
+    payload: dict[str, Any] = data['payload']
+    
+    if(method == 'GET'):
+        #frontend.update_setup(account_mode, repository.setup)
+        socketio.emit('updateSetup', {
+            'account_mode': bot_handler.exchange.get_account_mode(),
+            'money_amount': repository.setup.money_amount,
+            'stopwin': repository.setup.stopgain,
+            'stoploss': repository.setup.stoploss,
+            'martingales': repository.setup.martingales,
+            'soros': repository.setup.soros
+        })
+
+
 @socketio.on('updateSelectedAsset')
 def update_selected_asset(asset_name: str):
     asset = repository.get_asset_by_name(asset_name)
@@ -109,7 +127,7 @@ def error_handler(e):
 
 # ============================================================================ #
 if(__name__ == '__main__'):
-    debug = True
+    debug = False
     
     if(not debug):
         webbrowser.open('http://localhost:5000')
