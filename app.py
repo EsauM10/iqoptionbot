@@ -110,6 +110,7 @@ def settings_page(data: dict[str, Any]):
         repository.setup.stoploss    = float(payload['stop_loss'])
         repository.setup.martingales = int(payload['martingales'])
         repository.setup.soros       = int(payload['soros'])
+        frontend.push_notification('info', message='Setup atualizado')
 
 
 @socketio.on('updateSelectedAsset')
