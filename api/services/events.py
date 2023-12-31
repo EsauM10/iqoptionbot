@@ -1,7 +1,9 @@
+from typing import Literal
 from flask_socketio import SocketIO
 
 from api.entities import Asset, PriceAlert, Transaction
 
+NotificationType = Literal['info', 'warning', 'error']
 
 class FrontendChannels:
     def __init__(self, socket: SocketIO) -> None:
@@ -12,6 +14,9 @@ class FrontendChannels:
 
     def delete_alert(self, alert_id: int):
         self.socket.emit('deleteAlertItem', alert_id)
+
+    def push_notification(self, notification_type: NotificationType, message: str):
+        self.socket.emit('pushNotification', {'message': message, 'type': notification_type})
 
     def update_account_balance(self, balance: float):
         self.socket.emit('setAccountBalance', balance)
