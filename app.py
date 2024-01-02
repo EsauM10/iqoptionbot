@@ -91,15 +91,8 @@ def settings_page(data: dict[str, Any]):
     payload: dict[str, Any] = data['payload']
     
     if(method == 'GET'):
-        #frontend.update_setup(account_mode, repository.setup)
-        socketio.emit('updateSetup', {
-            'account_mode': bot_handler.exchange.get_account_mode(),
-            'money_amount': repository.setup.money_amount,
-            'stopwin': repository.setup.stopgain,
-            'stoploss': repository.setup.stoploss,
-            'martingales': repository.setup.martingales,
-            'soros': repository.setup.soros
-        })
+        account_mode = bot_handler.exchange.get_account_mode()
+        frontend.update_setup(account_mode, repository.setup)
     elif(method == 'PUT'):
         account_mode = str(payload['account_mode'])
         if(account_mode == 'PRACTICE' or account_mode == 'REAL'):

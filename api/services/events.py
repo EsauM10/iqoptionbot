@@ -1,6 +1,7 @@
 from typing import Literal
 from flask_socketio import SocketIO
 
+from trading.models import TradingSetup
 from api.entities import Asset, PriceAlert, Transaction
 
 NotificationType = Literal['info', 'warning', 'error']
@@ -71,6 +72,16 @@ class FrontendChannels:
         data = [item.to_dict for item in transactions]
         self.socket.emit('setTransactions', data)
     
+    def update_setup(self, account_mode: str, setup: TradingSetup):
+        self.socket.emit('updateSetup', {
+            'account_mode': account_mode,
+            'money_amount': setup.money_amount,
+            'stopwin': setup.stopgain,
+            'stoploss': setup.stoploss,
+            'martingales': setup.martingales,
+            'soros': setup.soros
+        })
+
     def update_start_button(self, asset: Asset):
         self.socket.emit('updateStartButton', {
             'name': asset.name, 
