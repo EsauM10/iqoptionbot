@@ -1,7 +1,8 @@
-const emailInput    = document.getElementById("emailInput")
-const passwordInput = document.getElementById("passwordInput")
-const loginButton   = document.getElementById("loginButton")
-const errors        = document.getElementById("errors")
+const emailInput      = document.getElementById("emailInput")
+const passwordInput   = document.getElementById("passwordInput")
+const toggleInputIcon = document.getElementById("toggleInput")
+const loginButton     = document.getElementById("loginButton")
+const errors          = document.getElementById("errors")
 
 class LoginPage {
     constructor() {
@@ -10,7 +11,14 @@ class LoginPage {
                 this.submitForm()
             }
         })
+        toggleInputIcon.addEventListener("click", () => this.showPassword())
         loginButton.addEventListener("click", () => this.submitForm())
+    }
+
+    showPassword() {
+        toggleInputIcon.classList.toggle("ph-eye-slash")
+        const inputType = passwordInput.getAttribute("type")
+        passwordInput.setAttribute("type", inputType === "password" ? "text" : "password")
     }
 
     submitForm() {
