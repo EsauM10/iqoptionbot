@@ -142,4 +142,7 @@ def run_app(port: int = 5000):
     if(not debug):
         webbrowser.open(f'http://localhost:{port}')
     
-    socketio.run(app, debug=debug, use_reloader=debug, log_output=True)
+    socketio.run(app, port=port, debug=debug, use_reloader=debug, log_output=True)
+
+if(__name__=='__main__'):
+    run_app()

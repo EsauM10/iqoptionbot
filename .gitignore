@@ -3,6 +3,7 @@ build/
 dist/
 output/
 venv/
+iqoptionbot.egg-info/
 
 main.py
 

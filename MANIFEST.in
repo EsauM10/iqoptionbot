@@ -1,2 +1,3 @@
+include iqoptionbot/app.spec
 recursive-include iqoptionbot/static *
 recursive-include iqoptionbot/templates *

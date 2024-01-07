@@ -22,6 +22,9 @@ setup(
     install_requires = [
         'Flask',
         'Flask-SocketIO',
+        'gevent',
+        'gevent-websocket',
+        'pyinstaller',
         'tradingbot @ git+https://github.com/EsauM10/tradingbot.git',
     ],
     entry_points={
