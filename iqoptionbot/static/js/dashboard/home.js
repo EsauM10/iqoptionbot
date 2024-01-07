@@ -236,7 +236,7 @@ class HomePage {
             })
         })
 
-        this.socket.emit("updateData") 
+        this.socket.emit(this.name) 
     }
 
     getHTML() {

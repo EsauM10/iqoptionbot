@@ -1,13 +1,14 @@
 from datetime import datetime
+
 from trading.logger import TradingLogger
 from trading.bot import TradingStrategy
 from trading.exceptions import StopTradingBot
 from trading.helpers import price_reached_target
 from trading.models import Action, Candle, Color
 
-from api.entities import Asset, PriceAlert
-from api.repository import Repository
-from api.services.events import FrontendChannels
+from iqoptionbot.api.entities import Asset, PriceAlert
+from iqoptionbot.api.repository import Repository
+from iqoptionbot.api.events import FrontendChannels
 
 logger = TradingLogger.instance()
 

@@ -1,8 +1,8 @@
 import logging
-from api.entities import Asset
 
-from api.repository import Repository
-from api.services.events import FrontendChannels
+from iqoptionbot.api.entities import Asset
+from iqoptionbot.api.repository import Repository
+from iqoptionbot.api.events import FrontendChannels
 
 class FrontendLogHandler(logging.Handler):
     def __init__(self, asset: Asset, frontend: FrontendChannels, repository: Repository) -> None:

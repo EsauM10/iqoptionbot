@@ -4,9 +4,9 @@ import webbrowser
 from flask import Flask, jsonify, render_template, request, redirect
 from flask_socketio import SocketIO
 
-from api.repository import Repository
-from api.services.bot import BotHandler
-from api.services.events import FrontendChannels
+from iqoptionbot.api.repository import Repository
+from iqoptionbot.api.services.bot import BotHandler
+from iqoptionbot.api.events import FrontendChannels
 
 app = Flask(__name__)
 socketio    = SocketIO(app)
@@ -43,7 +43,7 @@ def handle_login():
 
 
 @app.route('/dashboard', methods=['GET'])
-def home_page():
+def dashboard():
     if(not bot_handler.is_connected):
         return redirect('/login')
     return render_template('dashboard/index.html')
@@ -66,19 +66,24 @@ def handle_alerts(data: dict[str, Any]):
         frontend.delete_alert(alert_id)
 
 
-@socketio.on('updateData')
+@socketio.on('connect')
 @bot_handler.login_required
-def get_data(): 
+def on_connect(): 
     open_assets = bot_handler.exchange.get_open_assets(option='turbo', filter='open')
     account_balance = bot_handler.exchange.balance()
     repository.create_assets(open_assets)
     repository.update_selected_asset(open_assets[0]['name'])
 
+    frontend.update_open_assets(repository.selected_asset, repository.get_open_assets_names())
+    frontend.update_account_balance(account_balance)
+
+
+@socketio.on('home')
+@bot_handler.login_required
+def home_page():
     asset = repository.get_asset_by_name(repository.selected_asset)
     asset.price = bot_handler.exchange.get_current_price(asset.name)
-
-    frontend.update_open_assets(asset.name, repository.get_open_assets_names())
-    frontend.update_account_balance(account_balance)
+    frontend.update_open_assets(repository.selected_asset, repository.get_open_assets_names())
     frontend.update_transactions(repository.transactions)
     frontend.update_asset_data(asset)
     frontend.update_asset_alerts(asset)
@@ -129,11 +134,12 @@ def error_handler(e):
     bot_handler.stop()
     print(f'[{type(e)}]', e)
 
+
 # ============================================================================ #
-if(__name__ == '__main__'):
+def run_app(port: int = 5000):
     debug = False
     
     if(not debug):
-        webbrowser.open('http://localhost:5000')
+        webbrowser.open(f'http://localhost:{port}')
     
     socketio.run(app, debug=debug, use_reloader=debug, log_output=True)

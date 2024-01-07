@@ -2,7 +2,7 @@ from typing import Literal
 from flask_socketio import SocketIO
 
 from trading.models import TradingSetup
-from api.entities import Asset, PriceAlert, Transaction
+from iqoptionbot.api.entities import Asset, PriceAlert, Transaction
 
 NotificationType = Literal['info', 'warning', 'error']
 

@@ -2,9 +2,9 @@ from datetime import datetime
 from threading import Lock
 import time
 
-from api.entities import Transaction
-from api.repository import Repository
-from api.services.events import FrontendChannels
+from iqoptionbot.api.entities import Transaction
+from iqoptionbot.api.repository import Repository
+from iqoptionbot.api.events import FrontendChannels
 
 from trading.exchanges.iqoption import IQOptionExchange
 from trading.models import Action, Candle, Transaction as IQOptionTransaction

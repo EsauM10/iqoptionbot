@@ -1,0 +1,2 @@
+recursive-include iqoptionbot/static *
+recursive-include iqoptionbot/templates *

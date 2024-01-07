@@ -1,7 +1,8 @@
 from datetime import datetime
 from typing import Any
-from api.entities import Asset, LogMessage, PriceAlert, Transaction
-from api.exceptions import NotFoundException
+
+from iqoptionbot.api.entities import Asset, LogMessage, PriceAlert, Transaction
+from iqoptionbot.api.exceptions import NotFoundException
 
 from trading.models import TradingSetup
 

@@ -3,9 +3,6 @@ from datetime import datetime
 import time
 from typing import Any
 
-from api.services.decorators.helpers import calculate_time
-
-
 
 @dataclass
 class PriceAlert:

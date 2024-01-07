@@ -1,12 +1,12 @@
 from threading import Thread
 from typing import Any, Callable
-from api.entities import Asset
 
-from api.repository import Repository
-from api.services.events import FrontendChannels
-from api.services.decorators.exchange import ExchangeAdapter
-from api.services.logging import FrontendLogHandler
-from api.services.strategies import RetracementM5Strategy
+from iqoptionbot.api.entities import Asset
+from iqoptionbot.api.repository import Repository
+from iqoptionbot.api.events import FrontendChannels
+from iqoptionbot.api.services.exchange import ExchangeAdapter
+from iqoptionbot.api.services.logging import FrontendLogHandler
+from iqoptionbot.api.services.strategies import RetracementM5Strategy
 
 from trading.bot import TradingBot
 from trading.logger import TradingLogger
