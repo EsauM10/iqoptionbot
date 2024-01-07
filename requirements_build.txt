@@ -1,5 +1,0 @@
--r requirements.txt
-gevent
-gevent-websocket
-pyinstaller
-
