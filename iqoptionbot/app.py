@@ -75,7 +75,8 @@ def on_connect():
     repository.update_selected_asset(open_assets[0]['name'])
 
     frontend.update_open_assets(repository.selected_asset, repository.get_open_assets_names())
-    frontend.update_account_balance(account_balance)
+    frontend.update_account_mode(bot_handler.exchange.get_account_mode())
+    frontend.update_balance(account_balance)
 
 
 @socketio.on('home')
@@ -102,7 +103,9 @@ def settings_page(data: dict[str, Any]):
         account_mode = str(payload['account_mode'])
         if(account_mode == 'PRACTICE' or account_mode == 'REAL'):
             bot_handler.exchange.change_account(account_mode)
+            frontend.update_account_mode(account_mode)
             frontend.update_balance(bot_handler.exchange.balance())
+            
         repository.setup.set_money(float(payload['money_amount']))
         repository.setup.stopgain    = float(payload['stop_win'])
         repository.setup.stoploss    = float(payload['stop_loss'])

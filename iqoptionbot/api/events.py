@@ -20,8 +20,8 @@ class FrontendChannels:
     def push_notification(self, notification_type: NotificationType, message: str):
         self.socket.emit('pushNotification', {'message': message, 'type': notification_type})
 
-    def update_account_balance(self, balance: float):
-        self.socket.emit('setAccountBalance', balance)
+    def update_account_mode(self, account_mode: str):
+        self.socket.emit('setAccountMode', account_mode)
 
     def update_asset_data(self, asset: Asset):
         self.update_asset_name(asset)

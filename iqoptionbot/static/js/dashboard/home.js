@@ -19,7 +19,6 @@ class HomePage {
         this.socket.on("addAlertItem", (data) => this.addAlertItem(data))
         this.socket.on("deleteAlertItem", (alertId) => this.deleteAlertItem(alertId))
 
-        this.socket.on("setAccountBalance", (accountBalance) => this.setAccountBalance(accountBalance))
         this.socket.on("setTransactions", (transactions) => this.setTransactions(transactions))
         this.socket.on("setOpenAssets", (data) => this.setOpenAssets(data.selectedAsset, data.openAssets))
         
@@ -106,11 +105,6 @@ class HomePage {
     /** @returns {string} */
     getSelectedAsset() {
         return openAssetsSelect.value
-    }
-
-    /** @param {number} value */
-    setAccountBalance(value) {
-        accountBalance.innerText = `$ ${value}`
     }
 
     /** @param {string} name */
