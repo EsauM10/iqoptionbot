@@ -8,6 +8,7 @@ class Dashboard {
         
         this.socket.on("redirect", (pathname) => {redirect(pathname)})
         this.socket.on("pushNotification", (data) => this.pushNotification(data.message, data.type))
+        this.socket.on("setVersion", (version) => this.setVersion(version))
 
         this.sidebar = new Sidebar(pages)
         this.setPage(pages[0])
@@ -31,6 +32,13 @@ class Dashboard {
 
     setPage(page) {
         page.render()
+    }
+
+    /**
+     * @param {string} version 
+     */
+    setVersion(version) {
+        document.getElementById("version").innerText = `Versão: v${version}`
     }
 }
 
