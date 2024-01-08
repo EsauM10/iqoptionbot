@@ -1,11 +1,12 @@
 from setuptools import setup, find_packages
+from iqoptionbot.version import VERSION
 
 with open('README.md', 'r') as file:
     description = file.read()
 
 setup(
     name='iqoptionbot',
-    version='0.1.0',
+    version=VERSION,
     description='IQ Option Bot for operating M5 retracement.',
     long_description=description,
     long_description_content_type='text/markdown',
