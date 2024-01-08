@@ -99,3 +99,12 @@ input[type="radio"]:checked {
 #saveButton:hover {
     opacity: 0.9;
 }
+
+#version {
+    position: relative;
+    bottom: -20px;
+    left: 0px;
+    text-align: end;
+    font-size: 13px;
+    color: var(--gray);
+}

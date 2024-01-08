@@ -7,7 +7,6 @@ from flask_socketio import SocketIO
 from iqoptionbot.api.repository import Repository
 from iqoptionbot.api.services.bot import BotHandler
 from iqoptionbot.api.events import FrontendChannels
-from iqoptionbot.version import VERSION
 
 app = Flask(__name__)
 socketio    = SocketIO(app)
@@ -77,7 +76,6 @@ def on_connect():
 
     frontend.update_open_assets(repository.selected_asset, repository.get_open_assets_names())
     frontend.update_account_balance(account_balance)
-    socketio.emit('setVersion', VERSION)
 
 
 @socketio.on('home')

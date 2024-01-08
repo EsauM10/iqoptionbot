@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 
 from trading.models import TradingSetup
 from iqoptionbot.api.entities import Asset, PriceAlert, Transaction
+from iqoptionbot.version import VERSION
 
 NotificationType = Literal['info', 'warning', 'error']
 
@@ -79,7 +80,8 @@ class FrontendChannels:
             'stopwin': setup.stopgain,
             'stoploss': setup.stoploss,
             'martingales': setup.martingales,
-            'soros': setup.soros
+            'soros': setup.soros,
+            'version': VERSION
         })
 
     def update_start_button(self, asset: Asset):

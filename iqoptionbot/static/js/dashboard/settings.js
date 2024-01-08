@@ -42,6 +42,7 @@ class SettingsPage {
         document.getElementById("stoplossInput").value = data.stoploss
         document.getElementById("martingalesInput").value = data.martingales
         document.getElementById("sorosInput").value = data.soros
+        document.getElementById("version").innerText = `Versão: v${data.version}`
     }
 
     render() {
@@ -106,6 +107,7 @@ class SettingsPage {
             <footer>
                 <button id="saveButton">Salvar</button>
             </footer>
+            <p id="version"></p>
         </div>
         `
     }
